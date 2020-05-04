@@ -16,7 +16,10 @@ export default class TaskGroup extends Component {
         this.task = e.target.value;
     }
         
-    
+    handleDelete = (task) => {
+        const tasks = this.state.tasks.filter(input_task => input_task !== task );
+        this.setState({ tasks: tasks });
+    }
 
     handleSubmit = () => {
         this.state.tasks.push(this.task);
@@ -28,7 +31,10 @@ export default class TaskGroup extends Component {
             <React.Fragment>
                 <input className="form-control" onChange={this.handleInput}></input>
                 <button onClick={this.handleSubmit} >submit</button>
-                { this.state.tasks.map(task => <Task key={task} description={task} /> ) }
+                { 
+                    this.state.tasks.map(task => 
+                        <Task key={task} description={task} onDelete={this.handleDelete} /> ) 
+                }
             </React.Fragment>            
         )
     }
